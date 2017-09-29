@@ -98,19 +98,14 @@ public class StudentController {
 			model.addAttribute("student", student);
 			return "form-update";
 		} else {
+			model.addAttribute("npm", npm);
 			return "not-found";
 		}
 	}
 
 	@RequestMapping(value = "/student/update/submit", method = RequestMethod.POST)
-	public String updateSubmit(
-			@RequestParam(value = "npm", required = false) String npm,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "gpa", required = false) double gpa)
+	public String updateSubmit(StudentModel student)
 	{
-		StudentModel student = studentDAO.selectStudent(npm);
-		student.setName(name);
-		student.setGpa(gpa);
     	studentDAO.updateStudent(student);
         return "success-update";
 	}
