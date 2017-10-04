@@ -11,15 +11,19 @@
 
 	<h1 class="page-header">Update Student</h1>
 
-	<form action="/student/update/submit" method="post" th:object="${student}">
+	<form action="/student/update/submit" method="post"
+		th:object="${student}">
 		<div>
-			<label for="npm">NPM</label> <input type="text" name="npm" readonly="true" th:value="${student.npm}" th:field="*{npm}" />
+			<label for="npm">NPM</label> <input type="text" name="npm"
+				readonly="true" th:value="${student.npm}" th:field="*{npm}" />
 		</div>
 		<div>
-			<label for="name">Name</label> <input type="text" name="name" th:value="${student.name}" th:field="*{name}" />
+			<label for="name">Name</label> <input type="text" name="name"
+				th:value="${student.name}" th:field="*{name}" />
 		</div>
 		<div>
-			<label for="gpa">GPA</label> <input type="text" name="gpa" th:value="${student.gpa}" th:field="*{gpa}" />
+			<label for="gpa">GPA</label> <input type="text" name="gpa"
+				th:value="${student.gpa}" th:field="*{gpa}" />
 
 		</div>
 
@@ -31,3 +35,6 @@
 </body>
 
 </html>
+
+
+

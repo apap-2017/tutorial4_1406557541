@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.example.model.CourseModel;
 import com.example.model.StudentModel;
 
 @Mapper
@@ -16,6 +17,18 @@ public interface StudentMapper
 {
     @Select("select npm, name, gpa from student where npm = #{npm}")
     StudentModel selectStudent (@Param("npm") String npm);
+    
+    /*@Select("select npm, name, gpa from student where npm = #{npm}")
+    @Results (value= {
+    		@Result (property="npm", column="npm"),
+    		@Result (property="name", column="name"),
+    		@Result (property="gpa", column="gpa"),
+    		@Result (property="courses", column="npm",
+    		javatype = List.class,
+    		many=@Many(select="selectCourses"))
+    })
+    StudentModel selectStudent (@Param("npm") String npm);*/
+
 
     @Select("select npm, name, gpa from student")
     List<StudentModel> selectAllStudents ();
@@ -28,4 +41,14 @@ public interface StudentMapper
     
     @Update("UPDATE student SET name = #{name}, gpa=#{gpa} WHERE npm = #{npm}")
 	void updateStudent(StudentModel student);
+    
+    /*
+     * Melakukan join antara tabel studentcourse dengan course
+	berdasarkan id_course dan difilter hanya pada student dengan NPM yang diberikan.
+     */
+    @Select("select course.id_course, name, credits " +
+    		"from studentcourse join course " +
+    		"on studentcourse.id_course = course.id_course " +
+    		"where studentcourse.npm = #{npm}")
+    List<CourseModel> selectCourses (@Param("npm") String npm);
 }
