@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Many;
 
 import com.example.model.CourseModel;
 import com.example.model.StudentModel;
@@ -15,19 +18,20 @@ import com.example.model.StudentModel;
 @Mapper
 public interface StudentMapper
 {
-    @Select("select npm, name, gpa from student where npm = #{npm}")
-    StudentModel selectStudent (@Param("npm") String npm);
-    
     /*@Select("select npm, name, gpa from student where npm = #{npm}")
+    StudentModel selectStudent (@Param("npm") String npm);
+    */
+	
+    @Select("select npm, name, gpa from student where npm = #{npm}")
     @Results (value= {
-    		@Result (property="npm", column="npm"),
-    		@Result (property="name", column="name"),
-    		@Result (property="gpa", column="gpa"),
-    		@Result (property="courses", column="npm",
-    		javatype = List.class,
+    		@Result(property="npm", column="npm"),
+    		@Result(property="name", column="name"),
+    		@Result(property="gpa", column="gpa"),
+    		@Result(property="courses", column="npm",
+    		javaType = List.class,
     		many=@Many(select="selectCourses"))
     })
-    StudentModel selectStudent (@Param("npm") String npm);*/
+    StudentModel selectStudent (@Param("npm") String npm);
 
 
     @Select("select npm, name, gpa from student")
